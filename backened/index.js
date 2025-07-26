@@ -9,6 +9,7 @@ const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
 const {UserModel} =require("./model/UserModel");
 
+
 const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
 
@@ -18,15 +19,21 @@ const app = express();
 app.use(express.json());  
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: ["http://localhost:3001"],
+    // methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
+
 app.use(cookieParser());
 app.use("/", authRoute);
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
 
-// Routes
+ 
+});
+
+// Route
 app.get("/allHoldings", async (req, res) => {
   let allHoldings = await HoldingsModel.find({});
   res.json(allHoldings);
